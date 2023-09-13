@@ -32,12 +32,14 @@ function SendMessage({set}) {
       checkIfChatRoomExist(send,receive).then(async(result)=>{
         if(typeof(result)==="boolean"){
           await addChatRoom(send,receive,messageRef.current.value)
+          messageRef.current.value=""
         }else{
           await updateRoomChatMessages(send,messageRef.current.value,result)
+          messageRef.current.value=""
         }
         set(true)
       })
-      messageRef.current.value=""
+      
     }
 
     useEffect(()=>{
