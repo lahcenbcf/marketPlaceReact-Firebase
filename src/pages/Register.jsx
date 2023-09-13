@@ -65,15 +65,15 @@ function Register() {
 },[])
   return (
     <div className='container min-h-screen flex flex-col justify-center items-center'>
-      <h1>Welecome to our page</h1>
+      <h1 className='text-2xl font-bold'>Welecome to manina marketPlace</h1>
       <form onSubmit={signUpuser} className='max-w-md w-full rounded-md p-3 flex flex-col items-start'>
           
           <div className='formInputs w-full' >
           {/* username input */}
           <div className='formControl'>
          
-          <BiSolidUser className='absolute left-0 bottom-[50%] translate-y-[50%]' />
-          <input autoComplete='off'  type="text" id='username' placeholder="" className=' border-none w-full px-4 py-2 rounded-sm outline-none' ref={nameRef} />
+          <BiSolidUser className='absolute left-0 bottom-[50%] translate-y-[50%] mx-2' />
+          <input autocomplete='off'  type="text" id='username' placeholder="" className=' border-none w-full p-4 px-8 rounded-sm outline-none' ref={nameRef} />
          
           <div className='inputLabel'>
             <label htmlFor='username'>username</label>
@@ -83,8 +83,8 @@ function Register() {
           {/* email input */}
           <div className='formControl'>
          
-          <BiSolidUser className='absolute left-0 bottom-[50%] translate-y-[50%]' />
-          <input autoComplete='off' type="email" id='email' placeholder="" className=' border-none w-full px-4 py-2 rounded-sm outline-none' ref={emailRef} />
+          <BiSolidUser className='absolute left-0 bottom-[50%] translate-y-[50%] mx-2' />
+          <input autoComplete='off' type="email" id='email' placeholder="" className=' border-none w-full p-4 px-8 rounded-sm outline-none' ref={emailRef} />
          
           <div className='inputLabel'>
             <label htmlFor='email'>email</label>
@@ -94,14 +94,14 @@ function Register() {
 
           <div className='formControl'>
           
-          <AiFillLock className='absolute left-0 bottom-[50%] translate-y-[50%]' />
+          <AiFillLock className='absolute left-0 bottom-[50%] translate-y-[50%] mx-2' />
           {/*show passord button */}
-          <div className='absolute right-2 bottom-[50%] translate-y-[50%]'>
+          <div className='absolute right-2 bottom-[50%] translate-y-[50%]' onClick={()=>setIshown(!isShown)}>
           {
             isShown ? <AiFillEye /> : <AiFillEyeInvisible /> 
           }
           </div>
-          <input type={isShown ? "text":"password"} id='password' placeholder="" className=' border-none w-full px-4 py-2 rounded-sm outline-none' ref={passRef} />   
+          <input type={isShown ? "text":"password"} id='password' autoComplete='false' placeholder="" className=' border-none w-full p-4 px-8 rounded-sm outline-none' ref={passRef} />   
           <div className='inputLabel'>
             <label htmlFor='password'>password</label>
           </div>

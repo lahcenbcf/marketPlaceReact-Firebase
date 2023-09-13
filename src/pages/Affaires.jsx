@@ -3,15 +3,24 @@ import { fetchProductsbyCategory } from '../api/products'
 import ProductItem from '../components/productItem/ProductItem'
 import {fetchMoreProducts} from '../api/products'
 import LoadingSpinner from '../outils/Spinner'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import { useNavigate } from 'react-router-dom'
 function Affaires() {
     const [affaires,setAffaires]=useState([])
     const [loading,setLoading]=useState(true)
     const [lastFetchedListing,setLastFetchedListing]=useState(null)
+
+    const navigate=useNavigate()
     useEffect(()=>{
-     fetchProductsbyCategory('affaires',setLastFetchedListing).then((data)=>{
-        setAffaires(data)
-        setLoading(false)
-     })  
+        const auth=getAuth()
+        onAuthStateChanged(auth,(user)=>{
+            if(!user) navigate("/signIn")
+            fetchProductsbyCategory('affaires',setLastFetchedListing).then((data)=>{
+                setAffaires(data)
+                setLoading(false)
+             })  
+        })
+     
      
     },[])
 

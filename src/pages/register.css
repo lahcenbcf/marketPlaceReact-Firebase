@@ -12,7 +12,7 @@
 .formControl .inputLabel label{
     position: absolute;
     bottom: 0;
-    left: 20px;
+    left: 30px;
     font-size: 0.8rem;
     height: 100%;
     transform: translateY(25%);

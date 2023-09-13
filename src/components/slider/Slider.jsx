@@ -6,17 +6,23 @@ import 'swiper/css';
 import 'swiper/css/bundle';
 import {AiFillStar} from 'react-icons/ai'
 import { getProductsToExplore } from '../../api/products'
+import { onAuthStateChanged,getAuth } from 'firebase/auth';
 function Slider() {
     const [loading,setLoading]=useState(true)
     const [products,setProducts]=useState([])
     const navigate=useNavigate()
 
     useEffect(()=>{
-        getProductsToExplore().then(ResolvedArray=>{
-            console.log(ResolvedArray)
-            ResolvedArray.forEach(item=>setProducts(prev=>[...prev,...item]))
-            setLoading(false)
+        const auth=getAuth()
+        onAuthStateChanged(auth,(user)=>{
+            if(!user) navigate("/")
+            getProductsToExplore().then(ResolvedArray=>{
+                console.log(ResolvedArray)
+                ResolvedArray.forEach(item=>setProducts(prev=>[...prev,...item]))
+                setLoading(false)
+            })
         })
+        
     },[])
     if(loading) return <h1>loading ...</h1>
   return (

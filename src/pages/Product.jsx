@@ -102,7 +102,7 @@ function Product() {
             </div>
         </div>
         {auth?.currentUser?.uid !== prodDataToDisplay.userRef && 
-          <Link to={`/contact/${prodDataToDisplay.userRef}?${prodDataToDisplay.name}`} className="p-1 flex rounded-sm bg-[#57ba36] " > <AiOutlineLink /> go to Profile</Link> }
+          <Link to={`/contact/${prodDataToDisplay.userRef}?${prodDataToDisplay.name}`} className="p-1 flex rounded-sm bg-[#57ba36] w-fit" > <AiOutlineLink />contact now</Link> }
 
         {/* MAP */}
 

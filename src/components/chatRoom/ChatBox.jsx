@@ -1,19 +1,17 @@
 import React, { useEffect,useState } from "react";
 import { getMessages } from "../../api/chat";
 import { getAuth , onAuthStateChanged } from "firebase/auth";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getUser } from "../../api/users";
-
-
 function ChatBox({set,change}) {
     const {userRef}=useParams()
     const [messages,setMessages]=useState([])
     const [loading,setLoading]=useState(true)
+    const navigate=useNavigate()
     const auth=getAuth()
     useEffect(()=>{
         onAuthStateChanged(auth,(user)=>{
           if(!user) navigate("/signIn")
-    console.log(auth.currentUser.uid)
         getMessages(auth.currentUser.uid,userRef).then(data=>{
             setMessages(data)
             setLoading(false)
@@ -32,9 +30,17 @@ function ChatBox({set,change}) {
           <img src={m.photoUrl} />
         </div>
       </div>
+      <div className="chat-header">
+    {m.name}
+    <time className="text-xs opacity-50 mx-2">{m.time}</time>
+  </div>
       <div className="chat-bubble">
         {m.message}
-      </div></div>
+      </div>
+      <div className="chat-footer opacity-50">
+    Delivered
+  </div>
+      </div>
     ))
     : <h2>no messages !</h2>
 }

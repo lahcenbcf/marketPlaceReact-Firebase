@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ChatRoom from '../components/chatRoom/ChatRoom'
+import { useNavigate } from 'react-router-dom'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 function Contact() {
     /*const [message,setMessage]=useState("")
     const [username,setUsername]=useState(null)
@@ -15,7 +17,13 @@ function Contact() {
         })
     },[params,username])*/
    // if(loading) return <h1>loading ...</h1>
-
+   const navigate=useNavigate()
+    useEffect(()=>{
+        const auth=getAuth()
+        onAuthStateChanged(auth,(user)=>{
+            if(!user)navigate("/signIn")
+        })
+    },[])
   return (
     <div className='w-full md:w-10/12 mx-auto p-4 pb-28'>
     {
