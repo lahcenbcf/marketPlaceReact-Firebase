@@ -55,7 +55,7 @@ if(user){
           <input type="email" id='email' placeholder="" className=' border-none w-full p-4 px-8 rounded-sm outline-none' ref={emailRef} />
          
           <div className='inputLabel'>
-            <label htmlFor='email'>username</label>
+            <label htmlFor='email'>email</label>
           </div>
           </div>
           {/* password input */}

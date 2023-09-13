@@ -5,8 +5,7 @@ import SignIn from './pages/SignIn'
 import Register from './pages/Register'
 import ForgotPass from './pages/ForgotPass'
 import Navbar from './components/Navbar'
-import { useEffect, useState } from 'react'
-import { getAuth } from 'firebase/auth'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import PrivateRoute from './components/privateRoute/PrivateRoute'
 import { ToastContainer } from 'react-toastify'
 import CategoryPage from './pages/CategoryPage'
@@ -16,8 +15,15 @@ import CreateProduct from './pages/CreateProduct'
 import Contact from './pages/Contact'
 import EditProduct from './pages/EditProduct'
 import Inbox from './pages/Inbox'
+import { useEffect, useState } from 'react'
 function App() {
-  
+  const [navIsActive,setNavIsActive]=useState(false)
+  useEffect(()=>{
+    const auth=getAuth()
+    onAuthStateChanged(auth,user=>{
+        if(user) setNavIsActive(true)
+    })
+  },[])
   return (
     <>
     <Router>
@@ -40,7 +46,10 @@ function App() {
         <Route path='*' element={<h1>page not found</h1>} /> 
         
         </Routes>
-      <Navbar />
+      {
+        navIsActive &&  <Navbar />
+      }
+       
     </Router>
       {/* our navbar */}
       <ToastContainer />
