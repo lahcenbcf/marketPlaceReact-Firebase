@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*,*::after,*::before{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+html{
+    scroll-behavior: smooth;
+}
+body{
+    min-height: 100vh;
+    background-color: #f4e7f8;
+    width: full;
+}
+
+
+/*
+Your selected colors:
+    Text: #0d0510 (RGB: 13, 5, 16)
+    Background: #f4e7f8 (RGB: 244, 231, 248)
+    Primary: #57ba36 (RGB: 87, 186, 54)
+    Secondary: #c4eece (RGB: 196, 238, 206)
+    Accent: #92b234 (RGB: 146, 178, 52)
+
+*/

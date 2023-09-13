@@ -1,0 +1,67 @@
+.formControl{
+    position: relative;
+    margin: 20px 0px;
+}
+.formControl .inputLabel{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+.formControl .inputLabel label{
+    position: absolute;
+    bottom: 0;
+    left: 20px;
+    font-size: 0.8rem;
+    height: 100%;
+    transform: translateY(25%);
+    transition: transform .4s ease-in-out;
+}
+.formControl .inputLabel::after{
+    content: "";
+    width: 0%;
+    height: 2px;
+    background-color: #57ba36 ;
+    position: absolute;
+    bottom: 0;
+    transition: width .4s ease-in-out;
+    border-radius: 2px;
+}
+
+/*magic of animation*/
+form .formInputs .formControl  input:focus  + .inputLabel::after,
+input:not(:placeholder-shown) + .inputLabel::after{
+    width: 100%;
+}
+
+form .formInputs .formControl input:focus + .inputLabel label,
+input:not(:placeholder-shown) + .inputLabel label{
+    transform: translateY(-1rem);
+    font-size: 1rem;
+    color: #0d0510;
+    font-weight: bold;
+}
+
+.loadMore{
+    position: relative;
+    width: fit-content;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+.loadMore::after{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    height: 10px;
+    left: 0;
+    z-index: -1;
+    opacity: .6;
+    width: 100%;
+    background-color: #57ba36;
+    transition: height .4s ease-in-out;
+}
+.loadMore:hover::after{
+    height: 20px;
+}
