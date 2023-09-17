@@ -20,7 +20,7 @@ function Offers() {
         <Slider />
         <div className='categories my-10'>
         <h2 className='font-bold '>categories</h2>
-        <div className='mt-3 flex justify-between gap-2 w10/12 md:w-3/5'>
+        <div className='mt-3 flex flex-wrap gap-2 w10/12 md:w-3/5'>
         {/* listing our categories */}
         {
           categories.map(cat=>(

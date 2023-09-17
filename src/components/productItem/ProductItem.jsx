@@ -35,20 +35,20 @@ function ProductItem({ product: { id, data }, isDelete, setListings, index }) {
         
       </div>
       {/* image background */}
-      <div className="h-24 w-28 rounded-lg shadow-md hover:brightness-50 z-0">
+      <div className="h-24 w-28 rounded-lg shadow-md hover:brightness-50 z-0 mt-4">
         <img src={data.imgUrls[0]} className="w-full h-full" />
       </div>
 
       {/* delete icon */}
       {isDelete && (
-        <>
+        <div>
           <AiFillDelete color="red"
             className="absolute top-2 right-2 box-content p-2 bg-[#CCCCCC] rounded-md"
             onClick={() => onDeleteProduct(data.category)}
           />
           <BiEdit
             color="green"
-            className="absolute top-12 right-2 lg:top-2 lg:right-8 box-content p-2 bg-[#CCCCCC] rounded-md"
+            className="absolute top-2 right-12 lg:top-2 lg:right-8 box-content p-2 bg-[#CCCCCC] rounded-md"
             onClick={() =>
               navigate("/editProduct", {
                 state: {
@@ -58,7 +58,7 @@ function ProductItem({ product: { id, data }, isDelete, setListings, index }) {
               })
             }
           />
-        </>
+        </div>
       )}
     </div>
   );

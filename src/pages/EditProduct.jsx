@@ -209,21 +209,21 @@ function EditProduct() {
         })
        
     },[])
-
+    if(loading) return <LoadingSpinner />
     return ( 
         <div className='container mx-auto min-h-screen p-4'>
-            <h1 className='font-bold p-4 text-[#0d0510] text-4xl'>Edit a Product</h1>
+            <h1 className='font-bold p-4 text-[#0d0510] text-2xl'>Edit a Product</h1>
             <main className=' max-w-lg'>
               <form className='w-full p-4' onSubmit={updateProduct}>
               {/* name */}
                 <div>
-                    <label className='font-semibold text-xl block my-3'>Name</label>
+                    <label className='text-md text-[#474747] block my-3'>Name</label>
                     <input type='text' onChange={onMutate} placeholder='name' id='name' minLength={1} maxLength={100} className='py-2 pl-2 w-10/12 rounded-sm' value={name} />
                 </div>
     
                 {/* category */}
                 <div>
-                <label className='font-semibold text-xl block my-3'>category</label>
+                <label className='text-md text-[#474747] block my-3'>category</label>
                 <select defaultValue={category} id='select' onChange={onMutate}>
                     <option value="">--Please choose an option--</option>
                     <option value="phones">phones</option>
@@ -235,14 +235,14 @@ function EditProduct() {
             {/* price */}
     
             <div>
-            <label className='font-semibold text-xl block my-3'>price</label>
+            <label className='text-md text-[#474747] block my-3'>price</label>
             <input type='number' id='primaryPrice' placeholder='price' onChange={onMutate} className='pl-2 py-2 w-10/12 rounded-sm' value={primaryPrice} />
         </div>  
     
         {/* offer */}
     
         <div>
-        <label className='font-semibold text-xl block my-3'>offer</label>
+        <label className='text-md text-[#474747] block my-3'>offer</label>
         <div className='flex items-center gap-2'>
         <input type='checkbox' id='yes' onChange={onMutate} value={true} ref={checkBoxRef1} /><h2>yes</h2>
         </div>
@@ -252,7 +252,7 @@ function EditProduct() {
     </div>  
     {/* adress */}
         <div>
-        <label className='font-semibold text-xl block my-3'>adress</label>
+        <label className='text-md text-[#474747] block my-3'>adress</label>
             <input type='text' id="location" placeholder='adress' onChange={onMutate} className='pl-2 py-2 w-10/12 rounded-sm' value={location} />
         </div>
         
@@ -262,22 +262,22 @@ function EditProduct() {
         
         {/* images */}
         <div>
-            <label className='font-semibold text-xl block my-3'>upload images</label>
-            <button className='btn btn-outline px-1 rounded-md bg-[#57ba36] border-none' onClick={uploadImages}>upload images</button>
+            <label className='text-md text-[#474747] block my-3'>upload images</label>
+            <button className='p-2 text-white text-xs px-1 rounded-md bg-[#117DF9] border-none' onClick={uploadImages}>upload images</button>
             <input type='file' onChange={onMutate} accept='.jpg,.png,.jpeg'  id="imageUrls" className="hidden" min={2} max={6} multiple required />
         </div>
         {/* discounted price */}
         {
             showDiscountedPrice && <div>
-            <label className='font-semibold text-xl block my-3'>discounted price</label>
+            <label className='text-md text-[#474747] block my-3'>discounted price</label>
             <input type='number' className='pl-2 py-2 rounded-sm w-10/12' placeholder='discountedPrice' id='discountedPrice' onChange={onMutate} value={discountedPrice}  />
             </div>
         }
         
-        <button type='submit' className='font-bold my-2 text-[#57ba36]'>edit product</button>
+        <button type='submit' className='font-bold my-2 text-[#117DF9]'>edit product</button>
         </form>
             </main>
-    {loading && <LoadingSpinner />}
+    
         </div>
       )
 }

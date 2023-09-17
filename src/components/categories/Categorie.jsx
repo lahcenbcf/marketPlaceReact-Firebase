@@ -6,7 +6,7 @@ function Categorie({categorie}) {
   return (
     <div>
         <Link to={'/categorie/'+categorie.title}>
-        <div className='w-42 h-42 bg-[#117DF9] px-6 py-4 rounded-md shadow-lg'>
+        <div className='w-42 h-42 bg-white px-6 py-4 rounded-md shadow-lg'>
         <div className='rounded-full bg-[#EADDCD]'>
             {categorie.icon}
         </div>

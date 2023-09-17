@@ -76,7 +76,7 @@ function Product() {
         {/**product details */}
         <div className='flex gap-3 items-center my-2'>
         <h1 className='text-3xl text-[#0d0510] font-semibold'>{prodDataToDisplay.name} - </h1>
-        <h4 className='text-lg font-semibold w-fit p-1 bg-[#57ba36] rounded-sm text-white'>{prodDataToDisplay.primaryPrice} DZ</h4>
+        <h4 className='text-lg font-semibold w-fit p-1 bg-[#117DF9] rounded-md text-white'>{prodDataToDisplay.primaryPrice} DZ</h4>
         </div>
         <h3 className='font-semibold text-md'>{prodDataToDisplay.location}</h3>
 {/* category */}
