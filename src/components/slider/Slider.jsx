@@ -31,10 +31,9 @@ function Slider() {
     <p className='font-bold my-2'>Recommended</p>
     <Swiper slidesPerView={1}
     modules={[Navigation, Pagination, Scrollbar, A11y]}
-      spaceBetween={50}
+      spaceBetween={10}
       navigation
-      pagination={{ clickable: true }}
-      scrollbar={{ draggable: true }}
+      className='h-56'
     >
     {
         products.map(({data,id})=>(
@@ -43,12 +42,9 @@ function Slider() {
                     state:data
                 })
             }}>
-                <div className='w-full h-42 relative'>
-                <img className='w-full h-full brightness-75' height={100} src={data?.imgUrls[0]} style={{
-                    backgroundSize:"cover",
-                    backgroundRepeat:"no-repeat"
-                }} /> 
-                <p className="absolute bottom-10 left-4 text-white ">{data.name}</p>
+                <div className='w-full relative flex justify-center'>
+                <img className='rounded-lg' src={data?.imgUrls[0]} /> 
+                <p className="absolute bottom-10 left-4 text-[#181E25] ">{data.name}</p>
                 
                 <p className='p-1 rounded-md bg-white absolute bottom-2 left-4 text-sm'>{data.discountedPrice ?? data.primaryPrice} DZ</p>
                 </div>

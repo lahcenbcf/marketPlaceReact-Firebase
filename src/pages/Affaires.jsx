@@ -33,8 +33,8 @@ function Affaires() {
         !affaires.length ? <h1>no offers are available now</h1> :
         <div className='w-10/12 md:w-3/5'>
             {
-                affaires.map((aff)=>(
-                    <ProductItem key={aff.id} product={aff} />
+                affaires.map((aff,idx)=>(
+                    <ProductItem key={aff.id} product={aff} index={idx} />
                 ))
             }
         </div>

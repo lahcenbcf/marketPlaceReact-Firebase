@@ -37,7 +37,7 @@ function GoogleOauth() {
         }
     }
   return (
-    <div className='flex flex-row-reverse gap-2 my-3' onClick={onGoogleClick}>
+    <div className='flex flex-row-reverse gap-2 my-3 w-3/4 mx-auto border p-2 rounded-md justify-center items-center' onClick={onGoogleClick}>
     <p className='font-semibold'>sign {location.pathname =="/signUp" ? "up" :"in"} with</p>
     
         <FcGoogle  />

@@ -19,7 +19,7 @@ function CreateProduct() {
         discountedPrice:0,
         imageUrls:null
     })
-    const [loading,setLoading]=useState(true)
+    const [loading,setLoading]=useState(false)
     const navigate  =useNavigate()
 
     //mutete function

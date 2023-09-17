@@ -39,8 +39,6 @@ form .formInputs .formControl input:focus + .inputLabel label,
 input:not(:placeholder-shown) + .inputLabel label{
     transform: translateY(-1rem);
     font-size: 1rem;
-    color: #0d0510;
-    font-weight: bold;
 }
 
 .loadMore{

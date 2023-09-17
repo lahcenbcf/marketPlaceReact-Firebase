@@ -18,9 +18,9 @@ function Offers() {
         <h1 className='text-4xl  font-bold py-4'>Explore</h1>
         {/* Slider */}
         <Slider />
-        <div className='categories'>
-        <h2 className='font-semibold'>categories</h2>
-        <div className='mt-3 flex gap-2 w10/12 md:w-3/5'>
+        <div className='categories my-10'>
+        <h2 className='font-bold '>categories</h2>
+        <div className='mt-3 flex justify-between gap-2 w10/12 md:w-3/5'>
         {/* listing our categories */}
         {
           categories.map(cat=>(

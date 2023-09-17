@@ -19,7 +19,7 @@ const CategoryPage = () => {
 
     if(loading) return <LoadingSpinner />
   else return (
-    <div className='container mx-auto min-h-screen p-2'>
+    <div className='container mx-auto min-h-screen p-2 pb-28'>
       <div className='header py-2'>
         <h1 className='text-3xl font-bold'>Explore {categoryName}</h1>
       </div>
@@ -29,8 +29,8 @@ const CategoryPage = () => {
       }
       {
         !prods.length ?<h2>no listings for now</h2> :
-            prods.map(p=>(
-                <ProductItem key={p.id} product={p} />
+            prods.map((p,index)=>(
+                <ProductItem key={p.id} product={p} index={index} />
             ))
 
       }

@@ -50,7 +50,7 @@ function SendMessage({set}) {
       })
     },[])
   return (
-    <div className='w-full rounded-md rounded-t-none bg-[#c4eece] px-10 py-6'>
+    <div className='w-full rounded-md rounded-t-none bg-[#117DF9] px-10 py-6'>
         <form onSubmit={handleSubmit} className='w-full flex'>
             <input type='text' className='w-full px-3' ref={messageRef} />
             <button type='submit' className='btn rounded-sm rounded-l-none'>send</button>

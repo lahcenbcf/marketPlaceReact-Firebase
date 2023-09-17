@@ -2,7 +2,7 @@ import { getAuth } from 'firebase/auth'
 import React from 'react'
 import {useState,useEffect} from 'react'
 import {BiShareAlt} from 'react-icons/bi'
-import {AiOutlineLink} from 'react-icons/ai'
+import {AiFillMessage} from 'react-icons/ai'
 import {useLocation,Link} from 'react-router-dom'
 import {Map} from '../components/map/Map'
 import {Navigation,Pagination,Scrollbar,A11y} from 'swiper/modules'
@@ -15,13 +15,12 @@ import useCoords from '../customHooks/getCoords'
 function Product() {
   const swiper=useSwiper()
   const {state:prodDataToDisplay}=useLocation()
-  console.log(prodDataToDisplay)
   //getCoords
   const {coords,loading}=useCoords(prodDataToDisplay.location)
   const auth=getAuth()
   const [shareLinkCopied,setShareLinkCopied]=useState(null)
   return (
-    <main className='container mx-auto min-h-screen p-4 mb-28'> 
+    <main className='container mx-auto min-h-screen p-4 pb-80'> 
         
         <div className='' onClick={(e)=>{
           e.preventDefault()
@@ -35,7 +34,7 @@ function Product() {
         <BiShareAlt />
         </div>
         {/*swiper sildes */}
-        <div className=' w-10/12 mx-auto rounded-sm' style={{
+        <div className='max-w-lg w-full mx-auto rounded-sm mb-6' style={{
           height:"300px"
         }}>
         <Swiper
@@ -55,7 +54,8 @@ function Product() {
                   backgroundSize:"cover",
                   backgroundPosition:"center",
                   width:"100%",
-                  height:"100%"
+                  height:"100%",
+                  borderRadius:"5px"
 
                 }} />
             </SwiperSlide>
@@ -102,7 +102,7 @@ function Product() {
             </div>
         </div>
         {auth?.currentUser?.uid !== prodDataToDisplay.userRef && 
-          <Link to={`/contact/${prodDataToDisplay.userRef}?${prodDataToDisplay.name}`} className="p-1 flex rounded-sm bg-[#57ba36] w-fit" > <AiOutlineLink />contact now</Link> }
+          <Link to={`/contact/${prodDataToDisplay.userRef}?${prodDataToDisplay.name}`} className="p-1 flex rounded-sm bg-[#117DF9] text-white w-fit mt-5 items-center gap-2" ><AiFillMessage/>contact now</Link> }
 
         {/* MAP */}
 
