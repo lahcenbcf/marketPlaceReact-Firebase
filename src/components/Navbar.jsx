@@ -1,17 +1,28 @@
-import React from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import React, { useEffect,useState } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import { AiOutlineShop } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import { BiSolidOffer } from "react-icons/bi";
 import { BsFillInboxFill } from "react-icons/bs";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 function Navbar() {
   const location = useLocation();
   const pathMatch = (currentRoute) => {
     return currentRoute === location.pathname;
   };
+const [hidden,setHidden]=useState(true)
+  useEffect(()=>{
+    const auth=getAuth()
+      onAuthStateChanged(auth,user=>{
+        if(!user){ setHidden(true)
+        }else setHidden(false)
+      })
+  },[])
+console.log(hidden)
+  if(hidden) return null
   return (
     <div className="max-w-lg w-full px-6 btm-nav-sm flex items-center justify-center shadow-lg rounded-md py-8 fixed bottom-0 bg-[white] left-[50%] -translate-x-[50%]">
-      <NavLink to="/" className="flex flex-col items-center gap-2 px-8">
+      <NavLink to="/explore" className="flex flex-col items-center gap-2 px-8">
         <AiOutlineShop
           fill={pathMatch("/") ? "#57ba36" : "#0d0510"}
           size={30}

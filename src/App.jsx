@@ -16,19 +16,14 @@ import Contact from './pages/Contact'
 import EditProduct from './pages/EditProduct'
 import Inbox from './pages/Inbox'
 import { useEffect, useState } from 'react'
+import Overview from './pages/Overview'
 function App() {
-  const [navIsActive,setNavIsActive]=useState(false)
-  useEffect(()=>{
-    const auth=getAuth()
-    onAuthStateChanged(auth,user=>{
-        if(user) setNavIsActive(true)
-    })
-  },[])
   return (
     <>
     <Router>
       <Routes>
-        <Route exact path='/' element={<Offers />} />
+        <Route path='/' element={<Overview />} />
+        <Route exact path='/explore' element={<Offers />} />
         <Route path='/offers' element={<Affaires />} />
         {/* use PrivateRoute */}
         <Route path='/myProfile' element={<PrivateRoute />}>
@@ -46,9 +41,8 @@ function App() {
         <Route path='*' element={<h1>page not found</h1>} /> 
         
         </Routes>
-      {
-        navIsActive &&  <Navbar />
-      }
+      <Navbar />
+      
        
     </Router>
       {/* our navbar */}

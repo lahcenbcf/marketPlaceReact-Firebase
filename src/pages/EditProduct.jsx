@@ -204,7 +204,7 @@ function EditProduct() {
             if(user){
                 setFormData({...formData,userRef:user.uid})
             }else{
-                navigate("/signIn")
+                navigate("/")
             }
         })
        

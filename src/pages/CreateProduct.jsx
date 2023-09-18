@@ -193,7 +193,7 @@ function CreateProduct() {
             if(user){
                 setFormData({...formData,userRef:user.uid})
             }else{
-                navigate("/signIn")
+                navigate("/")
             }
         })
    

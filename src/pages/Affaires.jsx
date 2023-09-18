@@ -14,7 +14,7 @@ function Affaires() {
     useEffect(()=>{
         const auth=getAuth()
         onAuthStateChanged(auth,(user)=>{
-            if(!user) navigate("/signIn")
+            if(!user) navigate("/")
             fetchProductsbyCategory('affaires',setLastFetchedListing).then((data)=>{
                 setAffaires(data)
                 setLoading(false)

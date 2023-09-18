@@ -21,7 +21,7 @@ function Contact() {
     useEffect(()=>{
         const auth=getAuth()
         onAuthStateChanged(auth,(user)=>{
-            if(!user)navigate("/signIn")
+            if(!user)navigate("/")
         })
     },[])
   return (

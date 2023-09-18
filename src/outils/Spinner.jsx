@@ -6,9 +6,9 @@ function LoadingSpinner() {
   return (
     <div className="spinner-container">
     <Audio
-    height="100"
-  width="100"
-  color="#4fa94d"
+    height="50"
+  width="50"
+  color="#117DF9"
   ariaLabel="audio-loading"
   wrapperStyle={{}}
   wrapperClass="wrapper-class"
