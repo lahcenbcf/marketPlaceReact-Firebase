@@ -2,7 +2,6 @@ import React, { useEffect,useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { AiOutlineShop } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
-import { BiSolidOffer } from "react-icons/bi";
 import { BsFillInboxFill } from "react-icons/bs";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 function Navbar() {
@@ -42,16 +41,6 @@ console.log(hidden)
         />
         <span className="btm-nav-label font-bold">myProfile</span>
       </NavLink>
-
-      <NavLink to="/offers" className="flex flex-col items-center gap-2 px-8">
-        <BiSolidOffer
-          size={30}
-          fill={pathMatch("/offers") ? "#117DF9" : "#0d0510"}
-          className="mt-2"
-        />
-        <span className="btm-nav-label font-bold">offers</span>
-      </NavLink>
-
       <NavLink to="/myInbox" className="flex flex-col items-center gap-2 px-8">
         <BsFillInboxFill
           size={30}

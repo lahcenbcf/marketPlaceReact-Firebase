@@ -13,22 +13,20 @@ function EditProduct() {
         data,id
     }}=useLocation()
     const navigate=useNavigate()
-    const [showDiscountedPrice,setShowDiscountedPrice]=useState(data.offer)
     const [formData,setFormData]=useState({
         name:"",
         category:"",
         location:"",
-       offer:true,
+       
             latitude:0,
             longitude:0   
         ,
         primaryPrice:0,
-        discountedPrice:0,
         imageUrls:null
     })
     const checkBoxRef1=useRef()
     const checkBoxRef2=useRef()
-    const {name,location,category,offer,primaryPrice,discountedPrice}=formData
+    const {name,location,category,primaryPrice}=formData
     const uploadImages=()=>{
         document.querySelector("#imageUrls").click()
     }
@@ -122,25 +120,12 @@ function EditProduct() {
         }
 
         delete formDataCopy.imageUrls
-        delete formDataCopy.location
-        !formDataCopy.offer && delete formDataCopy.discountedPrice
         
         try {
             const docRef=doc(db,data.category,id)
             
             await updateDoc(docRef,formDataCopy)
-            if(formData.offer != data.offer){
-                //check if we add or remove
-                if(formData.offer){
-                    //add
-                    addProductsbyCategory("affaires",formDataCopy).then((path)=>{
-                        navigate(path)
-                    })
-                }else{
-                    //remove 
-                    DeleteProduct(id,"affaires").then(()=>toast.success("your product is deleted")).catch(()=>toast.error('error'))
-                }
-            }
+           
             setLoading(false)
             toast.success("document updated !")
             navigate(`/categorie/${data.category}/${docRef.id}`)
@@ -224,7 +209,7 @@ function EditProduct() {
                 {/* category */}
                 <div>
                 <label className='text-md text-[#474747] block my-3'>category</label>
-                <select defaultValue={category} id='select' onChange={onMutate}>
+                <select defaultValue={category} id='select' onChange={onMutate} className='bg-white'>
                     <option value="">--Please choose an option--</option>
                     <option value="phones">phones</option>
                     <option value="laptops" >laptops</option>
@@ -266,14 +251,7 @@ function EditProduct() {
             <button className='p-2 text-white text-xs px-1 rounded-md bg-[#117DF9] border-none' onClick={uploadImages}>upload images</button>
             <input type='file' onChange={onMutate} accept='.jpg,.png,.jpeg'  id="imageUrls" className="hidden" min={2} max={6} multiple required />
         </div>
-        {/* discounted price */}
-        {
-            showDiscountedPrice && <div>
-            <label className='text-md text-[#474747] block my-3'>discounted price</label>
-            <input type='number' className='pl-2 py-2 rounded-sm w-10/12 bg-white' placeholder='discountedPrice' id='discountedPrice' onChange={onMutate} value={discountedPrice}  />
-            </div>
-        }
-        
+      
         <button type='submit' className='font-bold my-2 text-[#117DF9]'>edit product</button>
         </form>
             </main>

@@ -17,7 +17,6 @@ function Slider() {
         onAuthStateChanged(auth,(user)=>{
             if(!user) navigate("/")
             getProductsToExplore().then(ResolvedArray=>{
-                console.log(ResolvedArray)
                 ResolvedArray.forEach(item=>setProducts(prev=>[...prev,...item]))
                 setLoading(false)
             })
@@ -32,8 +31,10 @@ function Slider() {
     <Swiper slidesPerView={1}
     modules={[Navigation, Pagination, Scrollbar, A11y]}
       spaceBetween={10}
+      pagination={{ clickable: true }}
+      scrollbar={{ draggable: true }}
       navigation
-      className='h-56'
+      className='h-auto'
     >
     {
         products.map(({data,id})=>(
@@ -44,9 +45,9 @@ function Slider() {
             }}>
                 <div className='w-full relative flex justify-center bg-white rounded-md'>
                 <img className='rounded-lg' src={data?.imgUrls[0]} /> 
-                <p className="absolute bottom-10 left-4 text-[#181E25] font-semibold">{data.name}</p>
+                <p className="absolute bottom-10 left-4 text-[#181E25] font-semibold bg-white rounded-lg px-2 py-1" >{data.name}</p>
                 
-                <p className='p-1 rounded-md bg-[#117DF9] text-white absolute bottom-2 left-4 text-sm'>{data.discountedPrice ?? data.primaryPrice} DZ</p>
+                <p className='p-1 rounded-md bg-[#117DF9] text-white absolute bottom-2 left-4 text-sm'>{data.primaryPrice} DZ</p>
                 </div>
                 {data.offer && <AiFillStar color="yellow" className="absolute top-2 right-2" />}
             </SwiperSlide>

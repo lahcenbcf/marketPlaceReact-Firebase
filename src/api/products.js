@@ -19,7 +19,7 @@ export const fetchProductsbyCategory=async(categoryName,setLastFetchedListing)=>
     try{
         //get refercence
         const collectionName=collection(db,categoryName)
-        const q= query(collectionName,orderBy('timestamp','desc'),limit(1)) 
+        const q= setLastFetchedListing ? query(collectionName,orderBy('timestamp','desc'),limit(1))  : query(collectionName,orderBy('timestamp','desc'))
         const querySnap=await getDocs(q)
         setLastFetchedListing && setLastFetchedListing(querySnap.docs[querySnap.docs.length - 1])
         let prods=[]

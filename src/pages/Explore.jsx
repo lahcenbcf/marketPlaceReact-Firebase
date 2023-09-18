@@ -15,7 +15,7 @@ function Offers() {
   },[])
   return (
     <div className='container mx-auto min-h-screen p-3 pb-28'>
-        <h1 className='text-4xl  font-bold py-4'>Explore</h1>
+        <h1 className='text-4xl font-bold py-4'>Explore</h1>
         {/* Slider */}
         <Slider />
         <div className='categories my-10'>

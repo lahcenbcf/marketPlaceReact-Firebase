@@ -7,16 +7,11 @@ import {serverTimestamp} from 'firebase/firestore'
 import { addProductsbyCategory } from '../api/products'
 import LoadingSpinner from '../outils/Spinner'
 function CreateProduct() {
-    const [showDiscountedPrice,setShowDiscountedPrice]=useState(true)
-    const checkBoxRef1=useRef()
-    const checkBoxRef2=useRef()
     const [formData,setFormData]=useState({
         name:"",
         category:"",
         location:"",
-       offer:true,
         primaryPrice:0,
-        discountedPrice:0,
         imageUrls:null
     })
     const [loading,setLoading]=useState(false)
@@ -47,28 +42,6 @@ function CreateProduct() {
                 [e.target.id]:e.target.value
             }))
         }
-        //checkbox
-        if(e.target.type==="checkbox"){
-            setShowDiscountedPrice(e.target.value)
-            if(checkBoxRef1.current.id===e.target.id){
-                if(e.target.checked){
-                    //the second checkbox must be disbaled
-                    checkBoxRef2.current.checked=false
-                }
-            }else{
-                if(e.target.checked){
-                    //the second checkbox must be disbaled
-                    checkBoxRef1.current.checked=false
-                } 
-            }
-            
-                
-            
-            setFormData(prevState=>({
-                ...prevState,offer:e.target.value
-            }))
-        }
-        
     }
 
     
@@ -170,7 +143,6 @@ function CreateProduct() {
             timestamp:serverTimestamp()
         }
         delete formDataCopy.imageUrls
-        !formDataCopy.offer && delete formDataCopy.discountedPrice
         try {
             addProductsbyCategory(formDataCopy.category,formDataCopy).then((path)=>{
                 setLoading(false)
@@ -180,7 +152,6 @@ function CreateProduct() {
                     }
                 })
             })
-            if(!formDataCopy.offer) addProductsbyCategory("affaires",formDataCopy)
         } catch (error) {
            console.log(error) 
         }
@@ -214,7 +185,7 @@ function CreateProduct() {
             {/* category */}
             <div>
             <label className='text-md block text-[#474747] my-3'>category</label>
-            <select  id='select' onChange={onMutate}>
+            <select  id='select' onChange={onMutate} className='bg-white'>
                 <option value="" selected>--Please choose an option--</option>
                 <option value="phones">phones</option>
                 <option value="laptops" >laptops</option>
@@ -229,17 +200,7 @@ function CreateProduct() {
         <input type='number' id='primaryPrice' placeholder='price' onChange={onMutate} className='pl-2 py-2 w-10/12 rounded-sm bg-white'/>
     </div>  
 
-    {/* offer */}
-
-    <div>
-    <label className='text-[#474747] text-md block my-3'>offer</label>
-    <div className='flex items-center gap-2'>
-    <input type='checkbox' id='yes' onChange={onMutate} value={true} ref={checkBoxRef1} /><h2>yes</h2>
-    </div>
-    <div className='flex items-center gap-2'>
-    <input  type='checkbox' id='no' onChange={onMutate} value={false} ref={checkBoxRef2} /><h2>no</h2>
-    </div>
-</div>  
+   
 {/* adress */}
     <div>
     <label className='text-[#474747] text-md block my-3'>adress</label>
@@ -255,13 +216,6 @@ function CreateProduct() {
         <button className='p-2 text-white text-xs px-1 rounded-md bg-[#117DF9] border-none' onClick={uploadImages}>upload images</button>
         <input type='file' onChange={onMutate} accept='.jpg,.png,.jpeg'  id="imageUrls" className="hidden" min={2} max={6} multiple required />
     </div>
-    {/* discounted price */}
-    {
-        showDiscountedPrice && <div>
-        <label className='text-md text-[#474747] block my-3'>discounted price</label>
-        <input type='number' className='pl-2 py-2 rounded-sm w-10/12 bg-white' placeholder='discountedPrice' id='discountedPrice' onChange={onMutate}  />
-        </div>
-    }
     
     <button type='submit' className='font-bold my-2 text-[#117DF9]'>submit</button>
     </form>

@@ -24,7 +24,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Overview />} />
         <Route exact path='/explore' element={<Offers />} />
-        <Route path='/offers' element={<Affaires />} />
+        {/*<Route path='/offers' element={<Affaires />} /> */}
         {/* use PrivateRoute */}
         <Route path='/myProfile' element={<PrivateRoute />}>
           <Route path='/myProfile' element={<Profile />} />

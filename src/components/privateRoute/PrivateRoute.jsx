@@ -1,10 +1,11 @@
 import useAuthStatus from '../customHooks/useAuthStatus'
 import React from 'react'
 import {Outlet,Navigate} from 'react-router-dom'
+import LoadingSpinner from '../../outils/Spinner'
 const PrivateRoute = () => {
     //const isLogged=!!(getAuth().currentUser)
     const {isChecking,isLogged}=useAuthStatus()
-    if(isChecking) return <h3>is loading</h3>
+    if(isChecking) return <LoadingSpinner />
   return (
     <div>
       {
