@@ -24,7 +24,7 @@ console.log(hidden)
     <div className="max-w-lg w-full px-6 btm-nav-sm flex items-center justify-center shadow-lg rounded-md py-8 fixed bottom-0 bg-[white] left-[50%] -translate-x-[50%]">
       <NavLink to="/explore" className="flex flex-col items-center gap-2 px-8">
         <AiOutlineShop
-          fill={pathMatch("/") ? "#57ba36" : "#0d0510"}
+          fill={pathMatch("/explore") ? "#117DF9" : "#0d0510"}
           size={30}
           className="mt-2"
         />
@@ -37,7 +37,7 @@ console.log(hidden)
       >
         <CgProfile
           size={30}
-          fill={pathMatch("/myProfile") ? "#57ba36" : "#0d0510"}
+          fill={pathMatch("/myProfile") ? "#117DF9" : "#0d0510"}
           className="mt-2"
         />
         <span className="btm-nav-label font-bold">myProfile</span>
@@ -46,7 +46,7 @@ console.log(hidden)
       <NavLink to="/offers" className="flex flex-col items-center gap-2 px-8">
         <BiSolidOffer
           size={30}
-          fill={pathMatch("/offers") ? "#57ba36" : "#0d0510"}
+          fill={pathMatch("/offers") ? "#117DF9" : "#0d0510"}
           className="mt-2"
         />
         <span className="btm-nav-label font-bold">offers</span>
@@ -55,7 +55,7 @@ console.log(hidden)
       <NavLink to="/myInbox" className="flex flex-col items-center gap-2 px-8">
         <BsFillInboxFill
           size={30}
-          fill={pathMatch("/myInbox") ? "#57ba36" : "#0d0510"}
+          fill={pathMatch("/myInbox") ? "#117DF9" : "#0d0510"}
           className="mt-2"
         />
         <span className="btm-nav-label font-bold">inbox</span>
