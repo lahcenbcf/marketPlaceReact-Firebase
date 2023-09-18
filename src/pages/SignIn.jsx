@@ -9,6 +9,7 @@ import {getAuth,onAuthStateChanged,signInWithEmailAndPassword} from 'firebase/au
 import { toast } from 'react-toastify'
 import GoogleOauth from '../components/GoogleOauth/GoogleOauth'
 import Or from '../outils/Or'
+import LoadingSpinner from '../outils/Spinner'
 function Register() {
   const [isShown,setIshown]=useState(false)
   const [loading,setLoading]=useState(false)
@@ -35,7 +36,7 @@ if(user){
     } catch(
       error
     ) {
-      toast.error("something went wrong")
+      
       console.log(error)
     }
    
@@ -45,6 +46,8 @@ if(user){
       if(user) navigate("/")
     })
   },[])
+
+  if(loading) return <LoadingSpinner />
   return (
     <div className='container min-h-screen flex flex-col justify-center items-center'>
       <img src={logo} alt='manina phone' width={240} />
@@ -68,7 +71,7 @@ if(user){
           <div className='formControl'>
          
           <BiSolidUser className='absolute left-0 bottom-[50%] translate-y-[50%] mx-2' />
-          <input type="email" id='email' placeholder="" className='border-none w-full p-4 px-8 rounded-sm outline-none cursor-pointer text-[#788BA5] text-md' ref={emailRef} />
+          <input type="email" id='email' placeholder="" className='border-none w-full p-4 px-8 rounded-sm outline-none cursor-pointer text-[#788BA5] text-md bg-white' ref={emailRef} />
          
           <div className='inputLabel'>
             <label htmlFor='email' className='text-[#474747] font-normal'>email</label>
@@ -85,7 +88,7 @@ if(user){
             isShown ? <AiFillEye /> : <AiFillEyeInvisible /> 
           }
           </div>
-          <input type={isShown ? "text":"password"} id='password' placeholder="" className=' border-none w-full p-4 px-8 rounded-sm outline-none text-[#788BA5] text-md' ref={passRef} />
+          <input type={isShown ? "text":"password"} id='password' placeholder="" className=' border-none w-full p-4 px-8 rounded-sm outline-none text-[#788BA5] text-md bg-white' ref={passRef} />
           
           
           <div className='inputLabel'>

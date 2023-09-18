@@ -208,7 +208,7 @@ function CreateProduct() {
           {/* name */}
             <div>
                 <label className='text-md text-[#474747] font-normal block my-3'>Name</label>
-                <input type='text' onChange={onMutate} placeholder='name' id='name' minLength={1} maxLength={100} className='py-2 pl-2 w-10/12 rounded-sm' />
+                <input type='text' onChange={onMutate} placeholder='name' id='name' minLength={1} maxLength={100} className='py-2 pl-2 w-10/12 rounded-sm bg-white' />
             </div>
 
             {/* category */}
@@ -226,7 +226,7 @@ function CreateProduct() {
 
         <div>
         <label className='text-[#474747] text-md block my-3'>price</label>
-        <input type='number' id='primaryPrice' placeholder='price' onChange={onMutate} className='pl-2 py-2 w-10/12 rounded-sm'/>
+        <input type='number' id='primaryPrice' placeholder='price' onChange={onMutate} className='pl-2 py-2 w-10/12 rounded-sm bg-white'/>
     </div>  
 
     {/* offer */}
@@ -243,7 +243,7 @@ function CreateProduct() {
 {/* adress */}
     <div>
     <label className='text-[#474747] text-md block my-3'>adress</label>
-        <input type='text' id="location" placeholder='adress' onChange={onMutate} className='pl-2 py-2 w-10/12 rounded-sm'/>
+        <input type='text' id="location" placeholder='adress' onChange={onMutate} className='pl-2 py-2 w-10/12 rounded-sm bg-white'/>
     </div>
  
      
@@ -259,7 +259,7 @@ function CreateProduct() {
     {
         showDiscountedPrice && <div>
         <label className='text-md text-[#474747] block my-3'>discounted price</label>
-        <input type='number' className='pl-2 py-2 rounded-sm w-10/12' placeholder='discountedPrice' id='discountedPrice' onChange={onMutate}  />
+        <input type='number' className='pl-2 py-2 rounded-sm w-10/12 bg-white' placeholder='discountedPrice' id='discountedPrice' onChange={onMutate}  />
         </div>
     }
     

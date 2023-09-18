@@ -54,7 +54,6 @@ function Register() {
 
     } catch (error) {
       console.log(error)
-      toast.error("something went wrong")
     }
     
   }
@@ -66,6 +65,7 @@ function Register() {
       }
    })
 },[])
+if(loading) return <LoadingSpinner />
   return (
     <div className='container min-h-screen flex flex-col justify-center items-center'>
       
@@ -88,7 +88,7 @@ function Register() {
           <div className='formControl my-6'>
          
           <BiSolidUser className='absolute left-0 bottom-[50%] translate-y-[50%] mx-2' />
-          <input autocomplete='off'  type="text" id='username' placeholder="" className=' border-none w-full p-4 px-8 rounded-sm outline-none text-[#788BA5] text-md' ref={nameRef} />
+          <input autocomplete='off'  type="text" id='username' placeholder="" className=' border-none w-full p-4 px-8 rounded-sm outline-none text-[#788BA5] text-md bg-white' ref={nameRef} />
          
           <div className='inputLabel'>
             <label htmlFor='username' className='text-[#474747] font-normal'>username</label>
@@ -99,7 +99,7 @@ function Register() {
           <div className='formControl my-6'>
          
           <BiSolidUser className='absolute left-0 bottom-[50%] translate-y-[50%] mx-2' />
-          <input autoComplete='off' type="email" id='email' placeholder="" className=' border-none w-full p-4 px-8 rounded-sm outline-none text-[#788BA5] text-md' ref={emailRef} />
+          <input autoComplete='off' type="email" id='email' placeholder="" className=' border-none w-full p-4 px-8 rounded-sm outline-none text-[#788BA5] text-md bg-white' ref={emailRef} />
          
           <div className='inputLabel'>
             <label htmlFor='email' className='text-[#474747] font-normal'>email</label>
@@ -116,7 +116,7 @@ function Register() {
             isShown ? <AiFillEye /> : <AiFillEyeInvisible /> 
           }
           </div>
-          <input type={isShown ? "text":"password"} id='password' autoComplete='false' placeholder="" className=' border-none w-full p-4 px-8 rounded-sm outline-none text-[#788BA5] text-md' ref={passRef} />   
+          <input type={isShown ? "text":"password"} id='password' autoComplete='false' placeholder="" className='border-none w-full p-4 px-8 rounded-sm outline-none text-[#788BA5] text-md bg-white' ref={passRef} />   
           <div className='inputLabel'>
             <label htmlFor='password' className='text-[#474747] font-normal'>password</label>
           </div>
@@ -127,7 +127,7 @@ function Register() {
       </form>
           <p className='text-[#788BA5] '>have an account? <Link to="/signIn" className=' text-[#117DF9]'>sign In instead</Link> </p>
       
-      {loading && <LoadingSpinner />}
+      
     </div>
   )
 }

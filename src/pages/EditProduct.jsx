@@ -218,7 +218,7 @@ function EditProduct() {
               {/* name */}
                 <div>
                     <label className='text-md text-[#474747] block my-3'>Name</label>
-                    <input type='text' onChange={onMutate} placeholder='name' id='name' minLength={1} maxLength={100} className='py-2 pl-2 w-10/12 rounded-sm' value={name} />
+                    <input type='text' onChange={onMutate} placeholder='name' id='name' minLength={1} maxLength={100} className='py-2 pl-2 w-10/12 rounded-sm bg-white' value={name} />
                 </div>
     
                 {/* category */}
@@ -236,7 +236,7 @@ function EditProduct() {
     
             <div>
             <label className='text-md text-[#474747] block my-3'>price</label>
-            <input type='number' id='primaryPrice' placeholder='price' onChange={onMutate} className='pl-2 py-2 w-10/12 rounded-sm' value={primaryPrice} />
+            <input type='number' id='primaryPrice' placeholder='price' onChange={onMutate} className='pl-2 py-2 w-10/12 rounded-sm bg-white' value={primaryPrice} />
         </div>  
     
         {/* offer */}
@@ -253,7 +253,7 @@ function EditProduct() {
     {/* adress */}
         <div>
         <label className='text-md text-[#474747] block my-3'>adress</label>
-            <input type='text' id="location" placeholder='adress' onChange={onMutate} className='pl-2 py-2 w-10/12 rounded-sm' value={location} />
+            <input type='text' id="location" placeholder='adress' onChange={onMutate} className='pl-2 py-2 w-10/12 rounded-sm bg-white' value={location} />
         </div>
         
     
@@ -270,7 +270,7 @@ function EditProduct() {
         {
             showDiscountedPrice && <div>
             <label className='text-md text-[#474747] block my-3'>discounted price</label>
-            <input type='number' className='pl-2 py-2 rounded-sm w-10/12' placeholder='discountedPrice' id='discountedPrice' onChange={onMutate} value={discountedPrice}  />
+            <input type='number' className='pl-2 py-2 rounded-sm w-10/12 bg-white' placeholder='discountedPrice' id='discountedPrice' onChange={onMutate} value={discountedPrice}  />
             </div>
         }
         

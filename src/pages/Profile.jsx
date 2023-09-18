@@ -119,7 +119,7 @@ function Profile() {
                   <input
                     placeholder="enter your new username"
                     type="text"
-                    className="h-full w-10/12 outline-none border p-2 border-dotted"
+                    className="h-full w-10/12 outline-none border p-2 border-dotted bg-white"
                     ref={nameRef}
                   />
                 ) : (
