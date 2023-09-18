@@ -55,25 +55,10 @@ function Profile() {
 
     nameRef.current.value = "";
   };
-  const getClicked=(e)=>{
-    e.preventDefault()
-    document.getElementById("userPhoto").click()
-  }
-  const uploadPhotoUrl=async(e)=>{
-    if(!e.target.files){
-      return toast.error("upload photo")
-    }
-    try {
-      await updateProfile(currentUser,{
-        photoURL:e.target.files[0]
-      })
-      toast.success("uploaded")
-    } catch (error) {
-      console.log("error")
-    }
+ 
     
 
-  }
+  
   const logoutUser = () => {
     signOut(auth).then(() => navigate("/"));
   };
@@ -98,7 +83,7 @@ function Profile() {
       <main className="max-w-lg w-full bg-white rounded-lg -translate-y-11 mx-auto p-4 shadow-lg">
         {/**avatar with btn upload photo */}
 
-        <div className="flex justify-between items-center">
+        <div className="flex justify-start items-center">
           <img
             width={100}
             height={100}
@@ -109,10 +94,7 @@ function Profile() {
             }
             className="rounded-full"
           />
-          <input type="file" id="userPhoto" className="hidden" onChange={uploadPhotoUrl} accept='.jpg,.png,.jpeg' required />
-          <button className="bg-[#F0EFFA] rounded-lg p-1 font-medium px-2" onClick={getClicked}>
-            upload photo
-          </button>
+          
         </div>
 
         {/* personal details */}
