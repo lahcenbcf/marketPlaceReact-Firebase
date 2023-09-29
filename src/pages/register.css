@@ -63,3 +63,16 @@ input:not(:placeholder-shown) + .inputLabel label{
 .loadMore:hover::after{
     height: 20px;
 }
+
+.holderImages::-webkit-scrollbar{
+    width: 16px;
+}
+.holder::-webkit-scrollbar-track{
+    background: #e0e0e0;
+}
+.holderImages::-webkit-scrollbar-thumb{
+    border: 5px solid transparent;
+    border-radius: 100px;
+    background-color: #0092ca;
+    background-clip: content-box;
+}

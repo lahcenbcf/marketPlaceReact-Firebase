@@ -14,19 +14,17 @@ function EditProduct() {
     }}=useLocation()
     const navigate=useNavigate()
     const [formData,setFormData]=useState({
-        name:"",
-        category:"",
-        location:"",
-       
-            latitude:0,
-            longitude:0   
-        ,
-        primaryPrice:0,
-        imageUrls:null
+        name:data.name,
+        category:data.category,
+        location:data.location,
+        discountedPrice:data.discountedPrice,
+        offer:data.offer,
+        primaryPrice:data.primaryPrice,
+        imageUrls:null,
+        likes:data.likes
     })
-    const checkBoxRef1=useRef()
-    const checkBoxRef2=useRef()
-    const {name,location,category,primaryPrice}=formData
+    const [isOffer,setIsOffer]=useState(formData.offer)
+    const {name,location,category,primaryPrice,discountedPrice}=formData
     const uploadImages=()=>{
         document.querySelector("#imageUrls").click()
     }
@@ -35,6 +33,7 @@ function EditProduct() {
         if(!formData.name)return toast.error("name field is empty")
         if(!formData.primaryPrice) return toast.error("price field is empty")
         if(!formData.location) return toast.error("adress field missed")
+        if(!formData.discountedPrice && isOffer) return toast.error("discounted price field is empty")
         if(+formData.discountedPrice> +formData.primaryPrice){
             return toast.error("discounted price should be less than primary price")
         }
@@ -115,6 +114,7 @@ function EditProduct() {
         //console.log(imgUrls)
         const formDataCopy={
             ...formData,
+            offer:isOffer,
             imgUrls,
             timestamp:serverTimestamp()
         }
@@ -123,7 +123,6 @@ function EditProduct() {
         
         try {
             const docRef=doc(db,data.category,id)
-            
             await updateDoc(docRef,formDataCopy)
            
             setLoading(false)
@@ -154,6 +153,7 @@ function EditProduct() {
                 category:e.target.value
             }))
         }
+        if(e.target.type==="checkbox") setIsOffer(e.target.checked)
         //text/boolean/nums
         if(!e.target.files){
             setFormData(prevState=>({
@@ -161,27 +161,7 @@ function EditProduct() {
                 [e.target.id]:e.target.value
             }))
         }
-        //checkbox
-        if(e.target.type==="checkbox"){
-            if(checkBoxRef1.current.id===e.target.id){
-                if(e.target.checked){
-                    //the second checkbox must be disbaled
-                    checkBoxRef2.current.checked=false
-                }
-            }else{
-                if(e.target.checked){
-                    //the second checkbox must be disbaled
-                    checkBoxRef1.current.checked=false
-                } 
-            }
-            if(!e.target.value){
-                setShowDiscountedPrice(false)
-            }
-            setFormData(prevState=>({
-                ...prevState,offer:e.target.value
-            }))
-        }
-        
+       
     }
     useEffect(()=>{
         const auth=getAuth()
@@ -220,21 +200,24 @@ function EditProduct() {
             {/* price */}
     
             <div>
-            <label className='text-md text-[#474747] block my-3'>price</label>
-            <input type='number' id='primaryPrice' placeholder='price' onChange={onMutate} className='pl-2 py-2 w-10/12 rounded-sm bg-white' value={primaryPrice} />
+            <label className='text-md text-[#474747] block my-3'>primary price</label>
+            <input type='number' id='primaryPrice' placeholder='primary price' onChange={onMutate} className='pl-2 py-2 w-10/12 rounded-sm bg-white' value={primaryPrice} />
         </div>  
-    
-        {/* offer */}
-    
-        <div>
-        <label className='text-md text-[#474747] block my-3'>offer</label>
-        <div className='flex items-center gap-2'>
-        <input type='checkbox' id='yes' onChange={onMutate} value={true} ref={checkBoxRef1} /><h2>yes</h2>
-        </div>
-        <div className='flex items-center gap-2'>
-        <input  type='checkbox' id='no' onChange={onMutate} value={false} ref={checkBoxRef2} /><h2>no</h2>
-        </div>
-    </div>  
+        {
+            isOffer && <div>
+            <label className="text-[#474747] text-md block my-3">discounted price</label>
+            <input
+              type="number"
+              id="discountedPrice"
+              checked={isOffer}
+              placeholder="discounted price"
+              onChange={onMutate}
+              className="pl-2 py-2 w-10/12 rounded-sm bg-white"
+              value={discountedPrice}
+            />
+          </div>
+          }
+        {/* offer */} 
     {/* adress */}
         <div>
         <label className='text-md text-[#474747] block my-3'>adress</label>

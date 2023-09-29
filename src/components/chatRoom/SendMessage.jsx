@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { checkIfChatRoomExist , addChatRoom,updateRoomChatMessages} from '../../api/chat'
 import { getUser } from '../../api/users'
+import {AiOutlineSend} from 'react-icons/ai'
 function SendMessage({set}) {
   const messageRef=useRef()
   const [userRefInfo,setUserRefInfo]=useState(null)
@@ -50,10 +51,10 @@ function SendMessage({set}) {
       })
     },[])
   return (
-    <div className='w-full rounded-md rounded-t-none bg-[#117DF9] px-10 py-6'>
+    <div className='w-full rounded-md rounded-t-none bg-[#e0e0e0] p-2'>
         <form onSubmit={handleSubmit} className='w-full flex'>
-            <input type='text' className='w-full px-3' ref={messageRef} />
-            <button type='submit' className='btn rounded-sm rounded-l-none'>send</button>
+            <input type='text' className='w-full px-3 bg-[#e0e0e0] outline-none' ref={messageRef} />
+            <button type='submit' className='btn rounded-sm rounded-l-none bg-[#e0e0e0]'><AiOutlineSend /></button>
         </form>    
         
     </div>

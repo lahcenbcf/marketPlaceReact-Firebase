@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { DeleteProduct } from "../../api/products";
-import { AiFillDelete } from "react-icons/ai";
-import { BiEdit } from "react-icons/bi";
-function ProductItem({ product: { id, data }, isDelete, setListings, index }) {
+import { DeleteProduct, likeProductAction } from "../../api/products";
+import { AiOutlineDelete, AiOutlineHeart,AiOutlineEdit , AiFillHeart } from "react-icons/ai";
+import { BsEye} from "react-icons/bs";
+import Rate from "./Rate";
+import "./productItem.css";
+import { getAuth } from "firebase/auth";
+import { toast } from "react-toastify";
+function ProductItem({ product: { id, data }, isDelete, setListings }) {
   const navigate = useNavigate();
+  const auth=getAuth()
+  const [like,setLike]=useState(data.likes.includes(auth.currentUser.uid))
   const onDeleteProduct = (collectionName) => {
     if (window.confirm("are you sure you want to delete your product ?")) {
       DeleteProduct(id, collectionName).then(() => {
@@ -12,52 +18,95 @@ function ProductItem({ product: { id, data }, isDelete, setListings, index }) {
       });
     }
   };
-
+  const likeProduct=()=>{
+      likeProductAction(id,data.category,auth.currentUser?.uid,like).then(result => setLike(!like)).catch(e=>toast.error("something went wrong"))
+  }
   return (
-    <div className="bg-white w-full flex items-center gap-4 p-4 mt-5 relative">
-      <div className="absolute top-0 left-6 bg-[#117DF9] h-9 w-6 rounded-2xl rounded-t-none grid place-items-center font-bold text-white">
-        {index + 1}
-      </div> 
+    <div className="w-[260px] rounded-lg border-4 border-[#bbe9db] relative">
+      <div className="imageWrapper bg-[#ececec] w-full grid place-items-center rounded-lg relative mb-36">
+        <img
+          src={data.imgUrls[0]}
+          height={100}
+          className="absolute top-0 h-32 object-cover hover:h-40  transition-h duration-75 w-full brightness-75"
+        />
+      </div>
       {/* product content */}
-      <div className="w-[70%] mt-6">
-        <p className="text-xs px-2">{data.category}</p>
-        <p className="text-slate-500 font-semibold text-sm px-2">{data.location}</p>
-        <h2 className="text-md lg:text-xl text-[#0d0510] font-bold px-2">
+      <div className="p-4 relative">
+        <h2 className="text-md lg:text-xl text-slate-600 font-semibold">
           {data.name}
         </h2>
-
-        <p className="font-bold text-[#57ba36] mt-1 px-2">
-          {data.primaryPrice} DZ
-        </p>
-        <Link to={`/categorie/${data.category}/${id}`} state={data}>
-        <button className="p-2 rounded-lg text-sm my-2 bg-[#57ba36] text-white">view product</button>
-        </Link>
+        <p className="text-sm text-slate-400">{data.category}</p>
         
-      </div>
-      {/* image background */}
-      <div className="h-24 w-28 rounded-lg shadow-md hover:brightness-50 z-0 mt-4">
-        <img src={data.imgUrls[0]} className="w-full h-full" />
+        <div className="flex justify-between my-4">
+        {
+          data.offer ?  <div>
+          <p className="text-[#40a798] font-semibold text-lg">
+            {data.discountedPrice}DZ
+          </p>
+          <p className="text-slate-400 text-xs line-through">
+            {data.primaryPrice}DZ
+          </p>
+        </div> :  <p className="text-slate-400 text-xs line-through">
+        {data.primaryPrice}DZ
+      </p>
+        }
+          
+          <p
+            className={`${
+              data.status ? "text-[#40a798]" : "text-red-400"
+            } font-semibold`}
+          >
+            {data.status ? "In stock" : "wait"}
+          </p>
+        </div>
+        {/* rate componenet */}
+        <Rate />
+
+        <div className="my-3 flex items-center gap-4">
+          <Link to={`/contact/${data.userRef}`}>
+          {
+              auth.currentUser?.uid  !== data.userRef && <button className="p-2 rounded-sm text-sm my-2 bg-[#ffb4ac] hover:bg-[#ff487e] text-white">
+              message
+            </button> 
+          }
+            
+          </Link>
+          <Link
+            to={`/categorie/${data.category}/${id}`}
+            state={data}
+            className="p-4 rounded-sm border-2 grid place-content-center h-8 w-8 bg-[#e3e3e3]"
+          >
+            {<BsEye />}
+          </Link>
+          <div className="p-4 rounded-sm border-2 grid place-content-center h-8 w-8 bg-[#e3e3e3]" onClick={likeProduct}>
+            {like ? <AiFillHeart /> : <AiOutlineHeart />}
+          </div>
+        </div>
       </div>
 
       {/* delete icon */}
       {isDelete && (
+        
         <div>
-          <AiFillDelete color="red"
-            className="absolute top-2 right-2 box-content p-2 bg-[#CCCCCC] rounded-md"
-            onClick={() => onDeleteProduct(data.category)}
-          />
-          <BiEdit
-            color="green"
-            className="absolute top-2 right-12 lg:top-2 lg:right-8 box-content p-2 bg-[#CCCCCC] rounded-md"
-            onClick={() =>
-              navigate("/editProduct", {
-                state: {
-                  data,
-                  id,
-                },
-              })
-            }
-          />
+        <div className="absolute bottom-8 right-2 p-4 rounded-sm border-2 grid place-content-center h-8 w-8 bg-[#e3e3e3]">
+        <AiOutlineDelete
+        onClick={() => onDeleteProduct(data.category)}
+      />
+          </div>
+          <div className="absolute bottom-8 right-14 p-4 rounded-sm border-2 grid place-content-center h-8 w-8 bg-[#e3e3e3]">
+          <AiOutlineEdit
+          
+          onClick={() =>
+            navigate("/editProduct", {
+              state: {
+                data,
+                id,
+              },
+            })
+          }
+        />
+          </div>
+         
         </div>
       )}
     </div>

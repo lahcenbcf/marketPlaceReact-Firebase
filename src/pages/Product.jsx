@@ -1,139 +1,81 @@
-import { getAuth } from 'firebase/auth'
-import React from 'react'
-import {useState,useEffect} from 'react'
-import {BiShareAlt} from 'react-icons/bi'
-import {AiFillMessage} from 'react-icons/ai'
-import {useLocation,Link} from 'react-router-dom'
-import {Map} from '../components/map/Map'
-import {Navigation,Pagination,Scrollbar,A11y} from 'swiper/modules'
-import {Swiper,SwiperSlide, useSwiper} from 'swiper/react'
-
+import { getAuth } from "firebase/auth";
+import React from "react";
+import { useState } from "react";
+import { useLocation, Link } from "react-router-dom";
+import { Map } from "../components/map/Map";
+import "./register.css";
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/bundle';
-import useCoords from '../customHooks/getCoords'
+import "swiper/css";
+import "swiper/css/bundle";
+import useCoords from "../customHooks/getCoords";
 function Product() {
-  const swiper=useSwiper()
-  const {state:prodDataToDisplay}=useLocation()
+  const { state: prodDataToDisplay } = useLocation();
   //getCoords
-  const {coords,loading}=useCoords(prodDataToDisplay.location)
-  const auth=getAuth()
-  const [shareLinkCopied,setShareLinkCopied]=useState(null)
+  const { coords, loading } = useCoords(prodDataToDisplay.location);
+  const auth = getAuth();
+  const [shareLinkCopied, setShareLinkCopied] = useState(null);
   return (
-    <main className='container mx-auto min-h-screen p-4 pb-80'> 
-        
-        <div className='' onClick={(e)=>{
-          e.preventDefault()
-          navigator.clipboard.writeText(window.location.href)
-          setShareLinkCopied(true)
-          setTimeout(()=>{
-              setShareLinkCopied(false)
-          },1000)
-        }}>
-        <div className='absolute top-4 right-4 p-3 bg-white rounded-full w-fit shadow-md'>
-        <BiShareAlt />
+    <main className="container mx-auto min-h-screen p-4 mt-36 pb-80 relative">
+      <div className="flex">
+        <div className="holderImages px-10 max-h-[60vh] overflow-x-hidden overflow-scroll w-[50%]">
+          {prodDataToDisplay.imgUrls.map((image, index) => (
+            <img
+              src={image}
+              style={{
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                borderRadius: "5px",
+                margin: "10px 0px",
+              }}
+            />
+          ))}
         </div>
-        {/*swiper sildes */}
-        <div className='max-w-lg w-full mx-auto rounded-sm mb-6' style={{
-          height:"300px"
-        }}>
-        <Swiper
-        modules={[Navigation, Pagination, Scrollbar, A11y]}
-      spaceBetween={50}
-      slidesPerView={1}
-      navigation
-      pagination={{ clickable: true }}
-      scrollbar={{ draggable: true }}
-      onSwiper={(swiper) => console.log(swiper)}
-      onSlideChange={() => console.log('slide change')}
-        className='h-full w-full'>
-        {
-          prodDataToDisplay.imgUrls.map((image,i)=>(
-            <SwiperSlide key={i} onClick={()=>swiper.slideNext()}>
-                <img src={image}  style={{
-                  backgroundSize:"cover",
-                  backgroundPosition:"center",
-                  width:"100%",
-                  height:"100%",
-                  borderRadius:"5px"
-
-                }} />
-            </SwiperSlide>
-          ))
-        }
-        </Swiper>
-        </div>
-        
-       
-            
-        </div>
-
-
-        {
-          shareLinkCopied && <p className=' text-black'>Link copied!</p>
-        }
 
         {/**product details */}
-        <div className='flex gap-3 items-center my-2'>
-        <h1 className='text-3xl text-[#0d0510] font-semibold'>{prodDataToDisplay.name} - </h1>
-        <h4 className='text-lg font-semibold w-fit p-1 bg-[#117DF9] rounded-md text-white'>{prodDataToDisplay.primaryPrice} DZ</h4>
+        <div className="p-4 w-[50%]">
+          <h1 className="text-3xl text-[#0d0510] font-semibold">
+            {prodDataToDisplay.name}
+          </h1>
+          <h4 className="text-sm text-slate-500 my-3">
+            {prodDataToDisplay.location}
+          </h4>
+          {prodDataToDisplay.offer && (
+            <>
+              <p className="stat-title text-lg font-bold text-[#5dacbd]">
+                {prodDataToDisplay.discountedPrice} DZ
+              </p>
+              <p className="text-sm line-through">
+                {prodDataToDisplay.primaryPrice} DZ
+              </p>
+              <p className="my-3 w-[80%] text-slate-500">
+                Le lorem ipsum est, en imprimerie, une suite de mots sans
+                signification utilisée à titre provisoire pour calibrer une mise
+                en page, le texte définitif venant remplacer le faux-texte dès
+                qu'il est prêt ou que la mise en page est achevée
+              </p>
+              {auth?.currentUser?.uid !== prodDataToDisplay.userRef && (
+                <Link
+                  to={`/contact/${prodDataToDisplay.userRef}?${prodDataToDisplay.name}`}
+                  className="p-2 rounded-sm text-sm my-2 bg-[#ffb4ac] hover:bg-[#ff487e] text-white"
+                >
+                  send message
+                </Link>
+              )}
+            </>
+          )}
         </div>
-        <h3 className='font-semibold text-md'>{prodDataToDisplay.location}</h3>
-{/* category */}
-        <div className='flex gap-2'>
-        {
-          prodDataToDisplay.offer &&
-          <div className="stats shadow my-1">
-  
-                <div className="stat p-2">
-                    <div className="stat-title text-lg font-semibold">discountedPrice</div>
-                    <div className="stat-value text-sm">{prodDataToDisplay.discountedPrice} DZ</div>
-                </div>
-
-            </div>
-        }
-            <div className="stats shadow my-1">
-  
-                <div className="stat p-2">
-                    <div className="stat-title text-lg font-semibold">category</div>
-                    <div className="stat-value text-sm">{prodDataToDisplay.category}</div>
-                </div>
-
-            </div>
-        </div>
-        {auth?.currentUser?.uid !== prodDataToDisplay.userRef && 
-          <Link to={`/contact/${prodDataToDisplay.userRef}?${prodDataToDisplay.name}`} className="p-1 flex rounded-sm bg-[#117DF9] text-white w-fit mt-5 items-center gap-2" ><AiFillMessage/>contact now</Link> }
 
         {/* MAP */}
-
-        <div className='w-full h-[30vh]'>
-            {/*
-          
-          <MapContainer className='border-2' style={{
-              height:"100%",
-              width:"90%"
-            }} center={[6,-1]} zoom={13} scrollWheelZoom={false}>
-              <TileLayer attribution='&copy; <a href="http://osm.org/copyright">Open street map</a> contributors'
-              url='https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png'
-              />
-              <Marker position={[6,-1]}>
-                  <Popup>{prodDataToDisplay.location}</Popup>
-            </Marker>
-            </MapContainer>
-
-
-          */}
-
-          {loading ? <h1>loading map ....</h1> :
+      </div>
+      <div className="w-full h-[30vh]">
+        {loading ? (
+          <h1>loading map ....</h1>
+        ) : (
           <Map location={coords} zoomLevel={13} />
-        }
-            
-        </div>
-
-
-        
+        )}
+      </div>
     </main>
-  )
+  );
 }
 
-export default Product
+export default Product;

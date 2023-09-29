@@ -2,7 +2,6 @@ import React, { useEffect,useState } from "react";
 import { getMessages } from "../../api/chat";
 import { getAuth , onAuthStateChanged } from "firebase/auth";
 import { useNavigate, useParams } from "react-router-dom";
-import { getUser } from "../../api/users";
 function ChatBox({set,change}) {
     const {userRef}=useParams()
     const [messages,setMessages]=useState([])
@@ -20,7 +19,7 @@ function ChatBox({set,change}) {
     })},[change])
       if(loading) return <h1>loading </h1>
   return (
-<div className="w-full p-4 bg-white min-h-screen">
+<div className="container mx-auto border border-[#e0e0e0] p-4 bg-white min-h-screen">
 {
     messages.length ?    
     messages.map((m,index)=>(

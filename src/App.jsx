@@ -5,11 +5,9 @@ import SignIn from './pages/SignIn'
 import Register from './pages/Register'
 import ForgotPass from './pages/ForgotPass'
 import Navbar from './components/Navbar'
-import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import PrivateRoute from './components/privateRoute/PrivateRoute'
 import { ToastContainer } from 'react-toastify'
 import CategoryPage from './pages/CategoryPage'
-import Affaires from './pages/Affaires'
 import Product from './pages/Product'
 import CreateProduct from './pages/CreateProduct'
 import Contact from './pages/Contact'
@@ -18,6 +16,18 @@ import Inbox from './pages/Inbox'
 import { useEffect, useState } from 'react'
 import Overview from './pages/Overview'
 function App() {
+  const [isPhoneScreen,setIsPhoneScreen]=useState(false)
+  useEffect(()=>{
+    if(window.innerWidth<=360){
+      setIsPhoneScreen(true)
+    }
+      const resizeEvent=addEventListener("resize",(e)=>{
+          if(window.innerWidth<=360){
+            setIsPhoneScreen(true)
+          }
+      })
+      return ()=>removeEventListener(resizeEvent)
+  },[])
   return (
     <>
     <Router>
@@ -41,7 +51,7 @@ function App() {
         <Route path='*' element={<h1>page not found</h1>} /> 
         
         </Routes>
-      <Navbar />
+      <Navbar isPhone={isPhoneScreen} />
       
        
     </Router>

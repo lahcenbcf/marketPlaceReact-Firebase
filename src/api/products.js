@@ -3,14 +3,12 @@ import {
     collection,
     getDocs,
     query,
-    where,
     orderBy,
     limit,
     
     startAfter,
     doc,
-    collectionGroup,
-    addDoc,deleteDoc
+    addDoc,deleteDoc, updateDoc, getDoc
 }from 'firebase/firestore'
 import {toast} from 'react-toastify'
 import { db } from '../firebase.config'
@@ -84,7 +82,6 @@ export const addProductsbyCategory=(categoryName,data)=>{
  }
 
  export const DeleteProduct=async(productId,collectionName)=>{
-    console.log(collectionName,productId)
     try {
         await deleteDoc(doc(db,collectionName,productId))
     } catch (error) {
@@ -92,4 +89,29 @@ export const addProductsbyCategory=(categoryName,data)=>{
     }
     
     
+ }
+
+ export const likeProductAction=async(id,collectionName,userId,status)=>{
+        try {
+            const docRef=doc(db,collectionName,id)
+            const docData=await getDoc(docRef)
+            await updateDoc(docRef,{
+                ...docData.data(),
+                likes:  status ? docData.data().likes.filter(l=>l!=userId) :  [...docData.data().likes,userId]
+            })
+            return true
+        } catch (error) {
+            console.log(error)
+            return error
+        }
+ }
+
+ export const fetchLikedProducts=()=>{
+    try {
+        return Promise.all(
+            [...categories.map(cat=>fetchProductsbyCategory(cat.title))]
+        )
+    } catch (error) {
+        toast.error("something went wrong")
+    }
  }

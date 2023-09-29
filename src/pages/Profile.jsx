@@ -99,7 +99,7 @@ function Profile() {
 
         {/* personal details */}
 
-        <div className="p-4 my-5 rounded-lg border border-[#9197B3]">
+        <div className="p-4 my-5 border border-[#9197B3]">
           <form className="w-full">
             <div className="w-full my-4">
               <h3 className="text-[#9197B3] text-sm font-semibold">
@@ -156,7 +156,7 @@ function Profile() {
         </div>
         <Link
           to="/createProduct"
-          className="bg-[#117DF9] p-2 flex items-center justify-center gap-2 rounded-md text-white w-full"
+          className="p-2 rounded-sm text-sm my-2 bg-[#ffb4ac] hover:bg-[#ff487e] text-white w-fit"
         >
           create new Product
         </Link>
@@ -166,7 +166,8 @@ function Profile() {
 
       {listings.length ? (
         <div className="w-full">
-          <p className="text-[#117DF9] font-semibold">Your Products</p>
+          <p className="text-[#117DF9] font-semibold my-4">Your Products</p>
+          <div className="flex flex-wrap gap-6">
           {listings.map((listing, idx) => (
             <ProductItem
               key={idx}
@@ -176,6 +177,8 @@ function Profile() {
               setListings={setListings}
             />
           ))}
+          </div>
+          
         </div>
       ) : (
         <h1 className="my-3">no items for now</h1>
