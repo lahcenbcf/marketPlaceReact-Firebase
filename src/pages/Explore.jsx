@@ -10,20 +10,16 @@ function Offers() {
   const [prods,setProds]=useState([])
   const [loading,setLoading]=useState(false)
   const [selectedCat,setSelectedCat]=useState(null)
+  const [called,setCalled]=useState(false)
   const [filtredProds,setFilteredProds]=useState([])
   const filteredList=useMemo(()=>{
     if(prods && selectedCat) return prods.filter(p=>p.data.category===selectedCat)
   },[selectedCat])
   const filterProd=(query)=>{
+    setCalled(true)
     setFilteredProds(prods.filter(p=>p.data.name.toUpperCase().includes(query.toUpperCase())))
   }
   useEffect(()=>{
-      console.log("render")
-      console.log(filtredProds)
-      console.log(filteredList)
-  },[])
-  useEffect(()=>{
-    console.log("exectud")
     const auth=getAuth()
     onAuthStateChanged(auth,(user)=>{
       if(!user) navigate("/")
@@ -66,13 +62,14 @@ function Offers() {
                 filtredProds.length ? 
                   filtredProds.map(p=>(<ProductItem product={p} key={p.id} />))
                  : (
+                  (!filtredProds.length &&  called)? <h1>no item found</h1> :(
                   prods.length ? 
                 prods.map(p=>(
                   <ProductItem product={p} key={p.id} />
                   )) : <h1>empty</h1>
                 
               ))) 
-              )
+              ))
                   }
             
          </div>
