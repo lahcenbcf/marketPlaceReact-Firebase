@@ -1,23 +1,18 @@
 import { getAuth } from "firebase/auth";
 import React from "react";
-import { useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { Map } from "../components/map/Map";
 import "./register.css";
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/bundle";
 import useCoords from "../customHooks/getCoords";
 function Product() {
   const { state: prodDataToDisplay } = useLocation();
   //getCoords
   const { coords, loading } = useCoords(prodDataToDisplay.location);
   const auth = getAuth();
-  const [shareLinkCopied, setShareLinkCopied] = useState(null);
   return (
     <main className="container mx-auto min-h-screen p-4 mt-36 pb-80 relative">
       <div className="flex">
-        <div className="holderImages px-10 max-h-[60vh] overflow-x-hidden overflow-scroll w-[50%]">
+        <div className="holderImages hidden md:visible px-10 max-h-[60vh] overflow-x-hidden overflow-scroll w-[50%]">
           {prodDataToDisplay.imgUrls.map((image, index) => (
             <img
               src={image}
@@ -32,7 +27,7 @@ function Product() {
         </div>
 
         {/**product details */}
-        <div className="p-4 w-[50%]">
+        <div className="p-4 w-10/12 mx-auto md:w-[50%]">
           <h1 className="text-3xl text-[#0d0510] font-semibold">
             {prodDataToDisplay.name}
           </h1>

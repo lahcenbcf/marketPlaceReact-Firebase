@@ -15,6 +15,7 @@ import EditProduct from './pages/EditProduct'
 import Inbox from './pages/Inbox'
 import { useEffect, useState } from 'react'
 import Overview from './pages/Overview'
+import { AppProvider } from './context/AppContext'
 function App() {
   const [isPhoneScreen,setIsPhoneScreen]=useState(false)
   useEffect(()=>{
@@ -26,10 +27,10 @@ function App() {
             setIsPhoneScreen(true)
           }
       })
-      return ()=>removeEventListener(resizeEvent)
+      return ()=>removeEventListener("click",resizeEvent)
   },[])
   return (
-    <>
+    <AppProvider>
     <Router>
       <Routes>
         <Route path='/' element={<Overview />} />
@@ -57,7 +58,7 @@ function App() {
     </Router>
       {/* our navbar */}
       <ToastContainer />
-    </>
+    </AppProvider>
   )
 }
 

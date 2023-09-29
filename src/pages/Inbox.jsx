@@ -45,7 +45,7 @@ function Inbox() {
         mychatRooms.map((doc,index)=>(
 
             <Link to={`/contact/${auth.currentUser.uid==doc.firstWhoSend ?  doc.receiveuserInfo.id :doc.senduserInfo.id}`}>
-            <div key={index} className="p-4 rounded-xl rounded-b-none" style={{
+            <div key={index} className="p-4 rounded-xl rounded-b-none my-3" style={{
                 backgroundColor:bgColors[Math.floor(Math.random()*bgColors.length)]
             }}>
                 <div className='flex items-center justify-between mb-4'>

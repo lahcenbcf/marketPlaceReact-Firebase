@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { DeleteProduct, likeProductAction } from "../../api/products";
 import { AiOutlineDelete, AiOutlineHeart,AiOutlineEdit , AiFillHeart } from "react-icons/ai";
+import { AppContext } from "../../context/AppContext";
 import { BsEye} from "react-icons/bs";
 import Rate from "./Rate";
 import "./productItem.css";
@@ -9,6 +10,7 @@ import { getAuth } from "firebase/auth";
 import { toast } from "react-toastify";
 function ProductItem({ product: { id, data }, isDelete, setListings }) {
   const navigate = useNavigate();
+  const {setLikedProducts,setSomethingChange,likedProducts}=useContext(AppContext)
   const auth=getAuth()
   const [like,setLike]=useState(data.likes.includes(auth.currentUser.uid))
   const onDeleteProduct = (collectionName) => {
@@ -19,10 +21,16 @@ function ProductItem({ product: { id, data }, isDelete, setListings }) {
     }
   };
   const likeProduct=()=>{
-      likeProductAction(id,data.category,auth.currentUser?.uid,like).then(result => setLike(!like)).catch(e=>toast.error("something went wrong"))
+      likeProductAction(id,data.category,auth.currentUser?.uid,like).then(result => {
+        if(!like) {
+          setLikedProducts(prev=>[{data,id},...prev])
+          setSomethingChange(true)
+         } else setLikedProducts(likedProducts.filter(p=>p.data.userRef!=auth.currentUser.uid))
+        setLike(!like)
+      }).catch(e=>toast.error("something went wrong"))
   }
   return (
-    <div className="w-[260px] rounded-lg border-4 border-[#bbe9db] relative">
+    <div className="w-[260px] rounded-lg border-4 border-[#bbe9db] relative mx-auto">
       <div className="imageWrapper bg-[#ececec] w-full grid place-items-center rounded-lg relative mb-36">
         <img
           src={data.imgUrls[0]}

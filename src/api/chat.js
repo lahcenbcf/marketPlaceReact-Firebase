@@ -94,6 +94,7 @@ export const getMychatRooms=async(userId)=>{
         const collectionRef=collection(db,"chatRooms");
         const q=query(collectionRef,or(where("receiveuserInfo.id","==",userId),where("senduserInfo.id","==",userId)));
         const querySnapshot=await getDocs(q);
+        console.log(querySnapshot.docs[0].data())
         return querySnapshot.docs.length ? querySnapshot.docs : []
     } catch (error) {
         console.log(error)

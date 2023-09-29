@@ -29,7 +29,7 @@ function SendMessage({set}) {
         name:userRefInfo.username,
         photo:"https://randomuser.me/api/portraits/men/81.jpg"
       }
-      console.log(send,receive)
+    
       checkIfChatRoomExist(send,receive).then(async(result)=>{
         if(typeof(result)==="boolean"){
           await addChatRoom(send,receive,messageRef.current.value)

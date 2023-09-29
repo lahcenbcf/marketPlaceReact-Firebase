@@ -48,7 +48,7 @@ function Offers() {
       {
         categories.map(cat=>(
           <p className=
-             "font-semibold text-slate-500  capitalize hover:text-[#0092ca]" 
+             "font-semibold text-slate-500  capitalize hover:text-[#0092ca] hover:cursor-pointer" 
            key={cat.id} onClick={()=>setSelectedCat(cat.title)} >{cat.title}</p>
         ))
       }
