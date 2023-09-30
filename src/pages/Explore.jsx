@@ -10,15 +10,12 @@ function Offers() {
   const [prods,setProds]=useState([])
   const [loading,setLoading]=useState(false)
   const [selectedCat,setSelectedCat]=useState(null)
-  const [called,setCalled]=useState(false)
+  const [query,setQuery]=useState("")
   const [filtredProds,setFilteredProds]=useState([])
   const filteredList=useMemo(()=>{
     if(prods && selectedCat) return prods.filter(p=>p.data.category===selectedCat)
-  },[selectedCat])
-  const filterProd=(query)=>{
-    setCalled(true)
-    setFilteredProds(prods.filter(p=>p.data.name.toUpperCase().includes(query.toUpperCase())))
-  }
+    if(query) return prods.filter(p=>p.data.name.toUpperCase().includes(query.toUpperCase()))
+  },[selectedCat,query])
   useEffect(()=>{
     const auth=getAuth()
     onAuthStateChanged(auth,(user)=>{
@@ -38,7 +35,7 @@ function Offers() {
   return (
     <div className='container mx-auto min-h-screen p-3 pb-28 pt-20'>
       {/* Hero section */}
-      <Hero filterProd={filterProd} />
+      <Hero setSearchField={setQuery} />
       {/* category bar */}
       <div className='w-3/4 mx-auto flex gap-10 my-8' >
       {
@@ -59,16 +56,12 @@ function Offers() {
               (!filteredList?.length && filteredList) ? <h1>empty</h1> :(filteredList?.length ? filteredList.map((p)=>(
                 <ProductItem product={p} key={p.id} />
               )) : (filteredList?.length ?? (
-                filtredProds.length ? 
-                  filtredProds.map(p=>(<ProductItem product={p} key={p.id} />))
+                prods.length ? 
+                  prods.map(p=>(<ProductItem product={p} key={p.id} />))
                  : (
-                  (!filtredProds.length &&  called)? <h1>no item found</h1> :(
-                  prods.length ? 
-                prods.map(p=>(
-                  <ProductItem product={p} key={p.id} />
-                  )) : <h1>empty</h1>
+                  <h1>empty</h1>
                 
-              ))) 
+              )) 
               ))
                   }
             
