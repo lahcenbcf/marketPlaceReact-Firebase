@@ -5,7 +5,6 @@ import {
     query,
     orderBy,
     limit,
-    
     startAfter,
     doc,
     addDoc,deleteDoc, updateDoc, getDoc
@@ -62,8 +61,10 @@ export const addProductsbyCategory=(categoryName,data)=>{
      return new Promise(async(resolve,reject)=>{
         try{
             //get refercence
+            console.log(categoryName,data)
             const collectionName=collection(db,categoryName) 
             const docRef=await addDoc(collectionName,data)
+            console.log(docRef)
             toast.success("data saved")
             //
             resolve(`/categorie/${categoryName}/${docRef.id}`)

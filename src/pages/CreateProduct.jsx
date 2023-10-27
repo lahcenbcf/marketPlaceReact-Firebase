@@ -102,10 +102,8 @@ function CreateProduct() {
         const storage = getStorage();
         const auth = getAuth();
         const filename = `${auth.currentUser.uid}-${image.name}`;
-
         const storageRef = ref(storage, "images/" + filename);
         const uploadTask = uploadBytesResumable(storageRef, image);
-
         // 3. Completion observer, called on successful completion
         uploadTask.on(
           "state_changed",

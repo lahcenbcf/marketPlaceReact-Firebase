@@ -24,6 +24,7 @@ function Inbox() {
             if(!user) navigate("/signIn")
             getMychatRooms(auth.currentUser.uid)
         .then(data=>{
+            console.log(data)
             data.forEach(doc=>{
                 const otherUserMessages=doc.data().messages.filter(m=>m.userId!=auth.currentUser.uid)
                 otherUserMessages.length && setMychatRooms(prev=>[...prev,{...doc.data(),messages:otherUserMessages}])
